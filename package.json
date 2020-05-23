@@ -73,7 +73,11 @@
     }
   },
   "jest": {},
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "^7.14.5",
+    "rxfire": "^3.12.5",
+    "rxjs": "^6.5.5"
+  },
   "devDependencies": {
     "@babel/cli": "7.8.4",
     "@babel/core": "7.9.6",
