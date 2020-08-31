@@ -1,12 +1,12 @@
-import * as firebase from 'firebase/app';
+import * as firebase from "firebase/app";
 
-import { collectionData, docData } from 'rxfire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { collectionData, docData } from "rxfire/firestore";
+import { BehaviorSubject } from "rxjs";
 
-import { Auth } from './auth';
-import { IProduct } from './shop';
-import { IUser } from './types';
-import { CONFIG } from './core';
+import { Auth } from "./auth";
+import { IProduct } from "./shop";
+import { IUser } from "./types";
+import { CONFIG } from "./core";
 
 export interface ICart {
   items: Array<any>;
@@ -25,7 +25,7 @@ export interface ICartItem {
 export const EMPTY_CART: ICart = {
   items: [],
   quantity: 0,
-  total: 0
+  total: 0,
 };
 export const Cart = new class {
   items: Array<any> = [];
@@ -35,7 +35,7 @@ export const Cart = new class {
   private readonly _cart = new BehaviorSubject<ICart>({
     items: this.items,
     quantity: this.quantity,
-    total: this.total
+    total: this.total,
   });
 
   readonly data$ = this._cart.asObservable();
@@ -54,7 +54,7 @@ export const Cart = new class {
     return {
       items: this.items,
       quantity: this.quantity,
-      total: this.total
+      total: this.total,
     };
   }
 
@@ -87,7 +87,7 @@ export const Cart = new class {
   async updateQuantity(item: ICartItem) {
     const i = this.indexOf(item);
     if (i === -1) {
-      throw new Error('item is not in cart');
+      throw new Error("item is not in cart");
     }
 
     if (item.quantity == 0) {
@@ -115,7 +115,7 @@ export const Cart = new class {
   private _incrementQuantity(item: ICartItem) {
     const i = this.indexOf(item);
     if (i === -1) {
-      throw new Error('item is not in cart');
+      throw new Error("item is not in cart");
     }
 
     let currentItem = this.items[i];
@@ -184,9 +184,9 @@ export const Cart = new class {
   async update(cart: ICart) {
     return firebase
       .firestore()
-      .collection('shops')
+      .collection("shops")
       .doc(CONFIG.shop.$key)
-      .collection('customers')
+      .collection("customers")
       .doc(Auth.auth.uid as string)
       .update({ cart });
   }
@@ -204,7 +204,7 @@ export const Cart = new class {
    */
   guard() {
     if (!Auth.auth) {
-      throw new Error('please login before performing this action');
+      throw new Error("please login before performing this action");
     }
   }
 }();

@@ -49,14 +49,15 @@ class AuthModule {
           docData(
             firebase
               .firestore()
-              .collection('shops')
-              .doc(CONFIG.shop.$key)
               .collection('customers')
               .doc(auth.uid)
           )
         )
       )
       .subscribe(async (val: IUser) => {
+        if (!val.uid) {
+          return await this.loginAnonymously();
+        }
         this.user = val;
         Api.token = await firebase.auth().currentUser.getIdToken();
       });
@@ -79,13 +80,11 @@ class AuthModule {
       throw new Error('user is not authenticated');
     }
 
-    const addresses = Auth.user.addresses || [];
+    const addresses = Auth.user.addresses;
     addresses.push(address);
 
     return firebase
       .firestore()
-      .collection('shops')
-      .doc(CONFIG.shop.$key)
       .collection('customers')
       .doc(Auth.user.uid as string)
       .update({ addresses });
@@ -246,11 +245,9 @@ class AuthModule {
     const { user } = await firebase.auth().signInAnonymously();
     return firebase
       .firestore()
-      .collection('shops')
-      .doc(CONFIG.shop.$key)
       .collection('customers')
       .doc(user.uid)
-      .set({ isAnonymous: true, uid: user.uid });
+      .set({ isAnonymous: true, uid: user.uid, addresses: [] });
   }
 }
 

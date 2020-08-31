@@ -8,6 +8,8 @@ export interface IUser {
   uid: String;
   cart: ICart;
   addresses: Array<any>;
+  carts: any;
+  locale?: any;
 }
 
 export interface IPaymentMethod {
