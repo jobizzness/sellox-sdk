@@ -1,13 +1,13 @@
-import * as firebase from 'firebase/app';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
-import { authState, user } from 'rxfire/auth';
-import { collectionData, docData } from 'rxfire/firestore';
+import * as firebase from "firebase/app";
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter, switchMap, tap } from "rxjs/operators";
+import { authState, user } from "rxfire/auth";
+import { collectionData, docData } from "rxfire/firestore";
 
-import { ICart } from './cart';
-import { IAddress, IUser } from './types';
-import { Api } from './utils';
-import { CONFIG } from './core';
+import { ICart } from "./cart";
+import { IAddress, IUser } from "./types";
+import { Api } from "./utils";
+import { CONFIG } from "./core";
 
 class AuthModule {
   /** */
@@ -43,16 +43,11 @@ class AuthModule {
 
     this.authState$
       .pipe(
-        tap(auth => (this.auth = auth)),
-        filter(auth => auth !== null),
-        switchMap(auth =>
-          docData(
-            firebase
-              .firestore()
-              .collection('customers')
-              .doc(auth.uid)
-          )
-        )
+        tap((auth) => (this.auth = auth)),
+        filter((auth) => auth !== null),
+        switchMap((auth) =>
+          docData(firebase.firestore().collection("customers").doc(auth.uid)),
+        ),
       )
       .subscribe(async (val: IUser) => {
         if (!val.uid) {
@@ -77,7 +72,7 @@ class AuthModule {
    */
   async addAddress(address: IAddress) {
     if (!Auth.user) {
-      throw new Error('user is not authenticated');
+      throw new Error("user is not authenticated");
     }
 
     const addresses = Auth.user.addresses;
@@ -85,7 +80,7 @@ class AuthModule {
 
     return firebase
       .firestore()
-      .collection('customers')
+      .collection("customers")
       .doc(Auth.user.uid as string)
       .update({ addresses });
   }
@@ -96,11 +91,11 @@ class AuthModule {
   getOrders() {
     const ordersRef = firebase
       .firestore()
-      .collection('shops')
+      .collection("shops")
       .doc(CONFIG.shop.$key)
-      .collection('orders')
-      .where('customer.uid', '==', Auth.user.uid as string);
-    return collectionData(ordersRef, '$key');
+      .collection("orders")
+      .where("customer.uid", "==", Auth.user.uid as string);
+    return collectionData(ordersRef, "$key");
   }
 
   /**
@@ -111,8 +106,8 @@ class AuthModule {
     const { token } = await Api.post(
       `${CONFIG.shop.apiURL}/auth/authenticate`,
       {
-        ...data
-      }
+        ...data,
+      },
     );
     await firebase.auth().signInWithCustomToken(token);
     // return this.updateFromAuth(this.auth);
@@ -132,7 +127,7 @@ class AuthModule {
     if (this.user.isAnonymous) {
       const { token } = await Api.post(`${CONFIG.shop.apiURL}/auth/register`, {
         ...data,
-        uid: this.user.uid
+        uid: this.user.uid,
       });
 
       await firebase.auth().signInWithCustomToken(token);
@@ -171,7 +166,7 @@ class AuthModule {
    */
   async update(changes) {
     if (!this.auth) {
-      throw new Error('user is not logged it for this action');
+      throw new Error("user is not logged it for this action");
     }
 
     const updates = [];
@@ -205,13 +200,13 @@ class AuthModule {
    */
   private async updateFromAuth(auth) {
     if (!auth) {
-      throw new Error('whoops! no auth to update');
+      throw new Error("whoops! no auth to update");
     }
     return firebase
       .firestore()
-      .collection('shops')
+      .collection("shops")
       .doc(CONFIG.shop.$key)
-      .collection('customers')
+      .collection("customers")
       .doc(auth.uid)
       .update({
         isAnonymous: auth.isAnonymous,
@@ -219,7 +214,7 @@ class AuthModule {
         name: auth.displayName,
         avatar: auth.photoURL,
         phone: auth.phoneNumber || null,
-        email: auth.email || null
+        email: auth.email || null,
       });
   }
 
@@ -231,9 +226,9 @@ class AuthModule {
     const user = firebase.auth().currentUser;
     return firebase
       .firestore()
-      .collection('shops')
+      .collection("shops")
       .doc(CONFIG.shop.$key)
-      .collection('customers')
+      .collection("customers")
       .doc(user.uid)
       .update({ email });
   }
@@ -245,7 +240,7 @@ class AuthModule {
     const { user } = await firebase.auth().signInAnonymously();
     return firebase
       .firestore()
-      .collection('customers')
+      .collection("customers")
       .doc(user.uid)
       .set({ isAnonymous: true, uid: user.uid, addresses: [] });
   }

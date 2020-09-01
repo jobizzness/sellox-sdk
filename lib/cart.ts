@@ -27,7 +27,7 @@ export const EMPTY_CART: ICart = {
   quantity: 0,
   total: 0,
 };
-export const Cart = new class {
+export const Cart = new (class {
   items: Array<any> = [];
   quantity: Number = 0;
   total: Number | string = 0;
@@ -207,4 +207,4 @@ export const Cart = new class {
       throw new Error("please login before performing this action");
     }
   }
-}();
+})();

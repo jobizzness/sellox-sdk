@@ -58,7 +58,7 @@ export class CheckoutModule {
   getCurrentZone(zones, { originCountry, address }) {
     const zone =
       originCountry === address.country ? "DOMESTIC" : "INTERNATIONAL";
-    const i = zones.findIndex(item => item.value === zone);
+    const i = zones.findIndex((item) => item.value === zone);
 
     if (i === -1) {
       throw new Error("No shipping zone found");
@@ -93,7 +93,7 @@ export class CheckoutModule {
   getWeight(data) {
     let weight = 0;
 
-    data.items.forEach(item => {
+    data.items.forEach((item) => {
       weight += item.product.shippingDetails.weight;
     });
 
@@ -129,7 +129,7 @@ export class CheckoutModule {
       } else {
         fee = 0;
 
-        data.items.forEach(item => {
+        data.items.forEach((item) => {
           // Charge weight price
 
           rateApplies = true;

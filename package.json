@@ -1,15 +1,22 @@
 {
-  "name": "@sellox/sellox-js",
+  "name": "@sellox/sellox-sdk",
   "version": "0.0.0-development",
   "private": false,
   "description": "JavaScript library template to focus on ⌨️ coding, 🙌 collaborating and 🚀 shipping",
+  "homepage": "https://github.com/vvo/javascript-library-template#readme",
+  "bugs": {
+    "url": "https://github.com/vvo/javascript-library-template/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vvo/javascript-library-template.git"
+    "url": "git+https://github.com/vvo/javascript-library-template.git"
   },
   "license": "MIT",
   "author": "Matarr Jobe <jobizzness@sellox.io>",
   "main": "dist/",
+  "directories": {
+    "lib": "lib"
+  },
   "files": [
     "dist/",
     "lib/",

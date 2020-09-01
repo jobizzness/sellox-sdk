@@ -1,4 +1,4 @@
-import { ICart } from './cart';
+import { ICart } from "./cart";
 
 export interface IAddress {}
 
@@ -13,5 +13,5 @@ export interface IUser {
 }
 
 export interface IPaymentMethod {
-  name: 'CARD' | 'GOOGLE_PAY' | 'APPLE_PAY';
+  name: "CARD" | "GOOGLE_PAY" | "APPLE_PAY";
 }
