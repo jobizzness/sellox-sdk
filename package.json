@@ -8,7 +8,7 @@
     "url": "https://github.com/vvo/javascript-library-template.git"
   },
   "license": "MIT",
-  "author": "Vincent Voyer <vincent@codeagain.com>",
+  "author": "Matarr Jobe <jobizzness@sellox.io>",
   "main": "dist/",
   "files": [
     "dist/",
