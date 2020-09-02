@@ -1,10 +1,10 @@
-import * as firebase from "firebase/app";
+
 
 import { Api } from "./utils";
 import { IPaymentMethod } from "./types";
 import { ICart, ICartItem } from "./cart";
 import { Auth } from "./auth";
-import { CONFIG } from "./core";
+import { CONFIG, firebase } from "./core";
 import { Shop } from "./shop";
 
 export interface IRate {

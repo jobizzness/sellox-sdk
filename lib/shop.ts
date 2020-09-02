@@ -1,7 +1,7 @@
-import * as firebase from "firebase/app";
 
-import { collectionData, docData } from "rxfire/firestore";
-import { CONFIG } from "./core";
+
+import { collectionData, docData,  } from "rxfire/firestore";
+import { CONFIG, firebase } from "./core";
 
 export interface IProductMedia {
   downloadURL: String;

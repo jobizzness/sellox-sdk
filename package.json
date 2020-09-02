@@ -1,6 +1,6 @@
 {
   "name": "@sellox/sellox-sdk",
-  "version": "0.0.0-development",
+  "version": "0.0.7-development",
   "private": false,
   "description": "JavaScript library template to focus on ⌨️ coding, 🙌 collaborating and 🚀 shipping",
   "homepage": "https://github.com/vvo/javascript-library-template#readme",
@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "author": "Matarr Jobe <jobizzness@sellox.io>",
-  "main": "dist/",
+  "main": "lib/",
   "directories": {
     "lib": "lib"
   },
@@ -81,9 +81,9 @@
   },
   "jest": {},
   "dependencies": {
-    "firebase": "^7.14.5",
-    "rxfire": "^3.12.5",
-    "rxjs": "^6.5.5"
+    "firebase": "^7.19.1",
+    "rxfire": "^3.13.5",
+    "rxjs": "^6.6.2"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",

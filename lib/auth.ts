@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app";
+
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, switchMap, tap } from "rxjs/operators";
 import { authState, user } from "rxfire/auth";
@@ -7,7 +7,8 @@ import { collectionData, docData } from "rxfire/firestore";
 import { ICart } from "./cart";
 import { IAddress, IUser } from "./types";
 import { Api } from "./utils";
-import { CONFIG } from "./core";
+import { CONFIG, firebase } from "./core";
+
 
 class AuthModule {
   /** */
@@ -39,6 +40,7 @@ class AuthModule {
    *
    */
   bootstrap() {
+
     this.authState$ = authState(firebase.auth());
 
     this.authState$
@@ -46,7 +48,8 @@ class AuthModule {
         tap((auth) => (this.auth = auth)),
         filter((auth) => auth !== null),
         switchMap((auth) =>
-          docData(firebase.firestore().collection("customers").doc(auth.uid)),
+          docData(firebase.firestore().collection("shops")
+            .doc(CONFIG.shop.$key).collection("customers").doc(auth.uid)),
         ),
       )
       .subscribe(async (val: IUser) => {
@@ -80,6 +83,8 @@ class AuthModule {
 
     return firebase
       .firestore()
+      .collection("shops")
+      .doc(CONFIG.shop.$key)
       .collection("customers")
       .doc(Auth.user.uid as string)
       .update({ addresses });
@@ -238,8 +243,10 @@ class AuthModule {
    */
   async loginAnonymously() {
     const { user } = await firebase.auth().signInAnonymously();
+    console.log(user);
     return firebase
-      .firestore()
+      .firestore().collection("shops")
+      .doc(CONFIG.shop.$key)
       .collection("customers")
       .doc(user.uid)
       .set({ isAnonymous: true, uid: user.uid, addresses: [] });

@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app";
+
 
 import { collectionData, docData } from "rxfire/firestore";
 import { BehaviorSubject } from "rxjs";
@@ -6,7 +6,7 @@ import { BehaviorSubject } from "rxjs";
 import { Auth } from "./auth";
 import { IProduct } from "./shop";
 import { IUser } from "./types";
-import { CONFIG } from "./core";
+import { CONFIG, firebase } from "./core";
 
 export interface ICart {
   items: Array<any>;
