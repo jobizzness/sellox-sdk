@@ -1,5 +1,3 @@
-
-
 import { Api } from "./utils";
 import { IPaymentMethod } from "./types";
 import { ICart, ICartItem } from "./cart";
@@ -128,11 +126,10 @@ export class CheckoutModule {
         rateApplies = false;
       } else {
         fee = 0;
+        rateApplies = true;
 
         data.items.forEach((item) => {
           // Charge weight price
-
-          rateApplies = true;
 
           fee +=
             Number.parseFloat(rate.price) *
