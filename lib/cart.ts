@@ -1,5 +1,3 @@
-
-
 import { collectionData, docData } from "rxfire/firestore";
 import { BehaviorSubject } from "rxjs";
 
@@ -162,10 +160,19 @@ export const Cart = new (class {
    *
    * @param items
    */
-  private computeTotal(items: Array<ICartItem>): string {
+  computeTotal(items: Array<ICartItem>): string {
     let total: number = 0;
 
     items.forEach((item: any) => {
+      if (item.variant$key) {
+        let i = item.product.variants.findIndex(
+          (variant) => variant.value == item.variant$key,
+        );
+        let variantPrice = i !== -1 && item.product.variants[i].price;
+        // If user did not set a stock
+
+        item.price = !variantPrice ? item.price : variantPrice;
+      }
       total =
         total + Number.parseFloat(item.price) * Number.parseInt(item.quantity);
     });

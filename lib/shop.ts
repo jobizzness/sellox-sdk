@@ -1,7 +1,7 @@
-
-
-import { collectionData, docData,  } from "rxfire/firestore";
+import { collectionData, docData } from "rxfire/firestore";
+import { map, take } from "rxjs/operators";
 import { CONFIG, firebase } from "./core";
+import { BehaviorSubject, combineLatest } from "rxjs";
 
 export interface IProductMedia {
   downloadURL: String;
@@ -35,6 +35,8 @@ export interface IProduct {
 
 export const Shop = new (class {
   data;
+  products$;
+  filters$ = new BehaviorSubject({ category: null });
 
   getShop(username) {
     return firebase
@@ -45,6 +47,11 @@ export const Shop = new (class {
       .limit(1)
       .get();
   }
+
+  filterProducts(filters) {
+    this.filters$.next(filters);
+  }
+
   /**
    *
    * @param slug
@@ -102,6 +109,28 @@ export const Shop = new (class {
       .where("isPublished", "==", true)
       .limit(20);
     return collectionData(productsRef, "$key");
+  }
+
+  getProducts() {
+    this.products$ = this.products$ || this.products().latest(100);
+    const stream$ = combineLatest([this.products$, this.filters$]);
+    return stream$.pipe(
+      map(([products, filters]) => {
+        return products.map((item) => {
+          const categoryTerm = filters.category;
+          const found =
+            item.categories.findIndex((element) => {
+              return element.value.toLowerCase() === categoryTerm;
+            }) !== -1;
+
+          if (categoryTerm && !found) {
+            return false;
+          }
+
+          return item;
+        });
+      }),
+    );
   }
 
   getHasCategory(category, limit = 10) {
