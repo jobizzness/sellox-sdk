@@ -115,8 +115,8 @@ export const Shop = new (class {
     this.products$ = this.products$ || this.products().latest(100);
     const stream$ = combineLatest([this.products$, this.filters$]);
     return stream$.pipe(
-      map(([products, filters]) => {
-        return products.map((item) => {
+      map(([products, filters]: [any[], any]) => {
+        return products.filter((item) => {
           const categoryTerm = filters.category;
           const found =
             item.categories.findIndex((element) => {
