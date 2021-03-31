@@ -98,6 +98,17 @@ export class CheckoutModule {
     return weight;
   }
 
+  find($key) {
+    const ref = firebase
+      .firestore()
+      .collection("shops")
+      .doc(CONFIG.shop.$key)
+      .collection("checkout")
+      .doc($key);
+
+    return ref.get();
+  }
+
   checkRateApplies(
     rate: IRate,
     data: ICart,

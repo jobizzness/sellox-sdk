@@ -1,6 +1,6 @@
 {
   "name": "@sellox/sellox-sdk",
-  "version": "0.0.12-development",
+  "version": "0.0.13-development",
   "private": false,
   "description": "JavaScript library template to focus on ⌨️ coding, 🙌 collaborating and 🚀 shipping",
   "homepage": "https://github.com/vvo/javascript-library-template#readme",

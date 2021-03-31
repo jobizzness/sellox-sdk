@@ -1,4 +1,3 @@
-
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, switchMap, tap } from "rxjs/operators";
 import { authState, user } from "rxfire/auth";
@@ -8,7 +7,6 @@ import { ICart } from "./cart";
 import { IAddress, IUser } from "./types";
 import { Api } from "./utils";
 import { CONFIG, firebase } from "./core";
-
 
 class AuthModule {
   /** */
@@ -36,11 +34,20 @@ class AuthModule {
     await this.updateFromAuth(this.auth);
   }
 
+  createCustomToken(tokenId) {
+    return Api.post(`${CONFIG.shop.apiURL}/auth/createCustomToken`, {
+      token: tokenId,
+    });
+  }
+
+  setAuth(auth) {
+    return firebase.auth().signInWithCustomToken(auth);
+  }
+
   /**
    *
    */
   bootstrap() {
-
     this.authState$ = authState(firebase.auth());
 
     this.authState$
@@ -48,8 +55,14 @@ class AuthModule {
         tap((auth) => (this.auth = auth)),
         filter((auth) => auth !== null),
         switchMap((auth) =>
-          docData(firebase.firestore().collection("shops")
-            .doc(CONFIG.shop.$key).collection("customers").doc(auth.uid)),
+          docData(
+            firebase
+              .firestore()
+              .collection("shops")
+              .doc(CONFIG.shop.$key)
+              .collection("customers")
+              .doc(auth.uid),
+          ),
         ),
       )
       .subscribe(async (val: IUser) => {
@@ -245,7 +258,8 @@ class AuthModule {
     const { user } = await firebase.auth().signInAnonymously();
     console.log(user);
     return firebase
-      .firestore().collection("shops")
+      .firestore()
+      .collection("shops")
       .doc(CONFIG.shop.$key)
       .collection("customers")
       .doc(user.uid)
