@@ -81,7 +81,7 @@
   },
   "jest": {},
   "dependencies": {
-    "firebase": "^7.19.1",
+    "firebase": "^8.0.0",
     "rxfire": "^3.13.5",
     "rxjs": "^6.6.2"
   },
