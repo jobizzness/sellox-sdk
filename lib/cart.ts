@@ -206,10 +206,18 @@ export const Cart = new (class {
       throw new Error("unknown Code");
     }
 
+    const discount = res.docs[0];
+
+    // applu the discount to all cart items
+    let amount = this.calculateDiscountAmount(
+      discount,
+      Number.parseFloat(cart.total),
+    );
+
     return {
-      discount: res.docs[0],
+      discount,
       $code: code,
-      amount: 0,
+      amount,
     };
   }
 
