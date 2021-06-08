@@ -180,6 +180,39 @@ export const Cart = new (class {
     return total.toFixed(2);
   }
 
+  calculateDiscountAmount = (discount, price: number) => {
+    if (discount.discountType?.value === "PERCENTAGE") {
+      return price * (Number.parseFloat(discount.amount) / 100);
+    } else if (discount.discountType?.value === "AMOUNT_OFF") {
+      return Number.parseFloat(discount.amount);
+    }
+
+    return 0;
+  };
+
+  // foreach of my cart items, calculate the discount
+
+  async applyDiscount(code, cart) {
+    const res = await firebase
+      .firestore()
+      .collection("shops")
+      .doc(CONFIG.shop.$key)
+      .collection("discounts")
+      .where("$code", "==", code && code.toUpperCase())
+      .limit(1)
+      .get();
+
+    if (res.docs.length === 0) {
+      throw new Error("unknown Code");
+    }
+
+    return {
+      discount: res.docs[0],
+      $code: code,
+      amount: 0,
+    };
+  }
+
   private compute() {
     this.quantity = this.computeQuantity(this.items);
     this.total = this.computeTotal(this.items);

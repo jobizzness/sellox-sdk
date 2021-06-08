@@ -108,6 +108,16 @@ export class CheckoutModule {
 
     return ref.get();
   }
+  
+  async updatePhone(checkoutRef: any, phone: any) {
+     return firebase
+      .firestore()
+      .collection('shops')
+      .doc(CONFIG.shop.$key)
+      .collection('checkout')
+      .doc(checkoutRef.$key)
+      .update({ 'shippingAddress.phoneNumber': phone });
+  }
 
   checkRateApplies(
     rate: IRate,
