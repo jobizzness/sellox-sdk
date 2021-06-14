@@ -206,7 +206,7 @@ export const Cart = new (class {
       throw new Error("unknown Code");
     }
 
-    const discount = res.docs[0];
+    const discount = res.docs[0].data();
 
     // applu the discount to all cart items
     let amount = this.calculateDiscountAmount(
