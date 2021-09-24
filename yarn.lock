@@ -8168,12 +8168,12 @@ prepend-http@^2.0.0:
   resolved "https://registry.npmjs.org/prepend-http/-/prepend-http-2.0.0.tgz"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier-plugin-packagejson@2.2.12:
-  version "2.2.12"
-  resolved "https://registry.npmjs.org/prettier-plugin-packagejson/-/prettier-plugin-packagejson-2.2.12.tgz"
-  integrity sha512-dmZatncTp1Ehn1pomiBBNgkhTBDsuTnuv9mne6a7bVALf2Z0EwYIfhJ3m1Suj5XJxH+OKWSy7sER7Ag+4Vq7gA==
+prettier-plugin-packagejson@2.2.13:
+  version "2.2.13"
+  resolved "https://registry.npmjs.org/prettier-plugin-packagejson/-/prettier-plugin-packagejson-2.2.13.tgz"
+  integrity sha512-AUsRlYHn7jjMck1X54wYTsKj6/E3wf0d0joPFSnSqY3Sxz/e2qqe2x7w0AiMdVeeQcRAkakjp7Qes/riT7J0zA==
   dependencies:
-    sort-package-json "1.51.0"
+    sort-package-json "1.52.0"
 
 prettier@2.0.5:
   version "2.0.5"
@@ -9215,10 +9215,10 @@ sort-object-keys@^1.1.3:
   resolved "https://registry.npmjs.org/sort-object-keys/-/sort-object-keys-1.1.3.tgz"
   integrity sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==
 
-sort-package-json@1.51.0:
-  version "1.51.0"
-  resolved "https://registry.npmjs.org/sort-package-json/-/sort-package-json-1.51.0.tgz"
-  integrity sha512-+92YlWIDj2nlE4lbO2UPDwU3xEt9sKsk7mV7bOO6GjdEzBPC+i55U5lbyqotVQsUDM2qIwfD6b2sORdwb13iwg==
+sort-package-json@1.52.0:
+  version "1.52.0"
+  resolved "https://registry.npmjs.org/sort-package-json/-/sort-package-json-1.52.0.tgz"
+  integrity sha512-TsKDXgH3kPsaSrjAszQgg+n2/FDYdPrBrXD4YxMxExpogsi8LCek0YzK/jZ70i5Gi53WcpV+mVzvb5CHB5LpZw==
   dependencies:
     detect-indent "^6.0.0"
     detect-newline "3.1.0"
