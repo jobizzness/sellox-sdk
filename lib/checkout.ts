@@ -259,6 +259,12 @@ export class CheckoutModule {
     });
   }
 
+  async ipay88IntentFromCheckout(checkout) {
+    return await Api.post(`${CONFIG.shop.apiURL}/payment/ipay88-intent`, {
+      $key: checkout.id,
+    });
+  }
+
   async cashCheckout($key) {
     const intent = await Api.post(`${CONFIG.shop.apiURL}/payment/custom`, {
       $key: $key,
