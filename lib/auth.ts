@@ -79,7 +79,7 @@ class AuthModule {
    */
   async logout() {
     await firebase.auth().signOut();
-    return this.loginAnonymously();
+    // return this.loginAnonymously();
   }
 
   /**
