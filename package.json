@@ -82,7 +82,7 @@
   "jest": {},
   "dependencies": {
     "firebase": "^7.19.1",
-    "rxfire": "^3.13.5",
+    "rxfire": "^6.0.0",
     "rxjs": "^6.6.2"
   },
   "devDependencies": {
